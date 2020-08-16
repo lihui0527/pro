@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    {% load staticfiles %}
+    {% load static %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>基于攻击链路径安全防护系统</title>
+    <!-- base:css -->
+    <link rel="stylesheet" href="{%  static 'vendors/mdi/css/materialdesignicons.min.css' %}">
+    <link rel="stylesheet" href="{%  static 'vendors/css/vendor.bundle.base.css' %}">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="{%  static 'css/style1.css' %}">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="{%  static 'images/logo1.png' %}" />
+    <script type="text/javascript" >
+        function fun(){
+ //            新建一个date对象
+             var date =new Date();
+             var year = date.getFullYear();
+             var month = date.getMonth()+1;
+             var day = date.getDate();
+             var hour = date.getHours();
+             var minutes = date.getMinutes();
+             var seconds = date.getSeconds();
+             var week = date.getDay();
+            if(week==1){
+                week="一";
+            }if(week==2){
+                week="二";
+            }
+            if(week==3){
+                week="三";
+            }
+            if(week==4){
+                week="四";
+            }
+            if(week==5){
+                week="五";
+            }
+            if(week==6){
+                week="六";
+            }
+            if(week==7){
+                week="日";
+            }
+             var am="";
+             if(hour>=0 && hour<=12){
+                 am = "AM";
+             }else{
+                 am = "PM"
+             }
+             document.getElementById("date").innerHTML=year+"年"+month+"月"+day+"日"+" "+hour+":"+minutes+":"+seconds+" "+am+" 星期"+week;
+ 
+         }
+         onload = function(){
+             setInterval("fun()",100);
+         }
+     </script>
+</head>
+<body>
+<div class="container-scroller d-flex">
+    <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+            <li class="nav-item sidebar-category">
+                <p align="center"  style="font-size: 30px ;letter-spacing:1px;">基于攻击链路径</p>
+                </br>
+                <p align="center"  style="font-size:30px ;letter-spacing:1px ">安全防护系统</p>
+                <span></span>
+            </li>
+            <li class="nav-item sidebar-category">
+                <a href="index.html">
+                    <input align="center" type="button" value="Components"  style="border: none;background: #2c5569;color: #ffffff" >
+                </a>
+                <span></span>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                    <i class="mdi mdi-palette menu-icon"></i>
+                    <span class="menu-title" style="font-size:25px">数据监测</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="ui-basic">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="/user/nowData1" style="font-size:20px">实时数据</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="/user/historyData2" style="font-size:20px">历史数据</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="/user/dataPhoto"  style="font-size:20px">数据报表</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user/pollutionTracing">
+                    <i class="mdi mdi-view-headline menu-icon"></i>
+                    <span class="menu-title"  style="font-size:25px">安全溯源</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user/pollutionPredict">
+                    <i class="mdi mdi-chart-pie menu-icon"></i>
+                    <span class="menu-title" style="font-size:25px">安全预测</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic1">
+                    <i class="mdi mdi-palette menu-icon"></i>
+                    <span class="menu-title"style="font-size:25px">系统设置</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="ui-basic1">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="/user/userSystem" style="font-size:20px">用户管理</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="/user/setSystem" style="font-size:20px">系统管理</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+        <!-- partial:./partials/_navbar.html -->
+        <nav class="navbar col-lg-12 col-12 px-0 py-0 py-lg-4 d-flex flex-row">
+            <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+                <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                    <span class="mdi mdi-menu"></span>
+                </button>
+                <div class="navbar-brand-wrapper">
+                    <a class="navbar-brand brand-logo" href="index.html"><img src="{%  static 'images/log2.gif' %}"  width="120px" height="100px" alt="logo"/></a>
+                </div>
+                <h4 class="font-weight-bold mb-0 d-none d-md-block mt-1">今天也要加油喔！</h4>
+                <ul class="navbar-nav navbar-nav-right">
+                    <li class="nav-item">
+                        <h4 style="color: white;font-size: 15px"><p id="date"></p></h4>
+                    </li>
+                    <li class="nav-item dropdown mr-1">
+                        <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-toggle="dropdown">
+                            <i class="mdi mdi-calendar mx-0"></i>
+                            <span class="count bg-info">2</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
+                            <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
+                            <a class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                    <img src="{%  static 'images/faces/face4.jpg' %}" alt="image" class="profile-pic">
+                                </div>
+                                <div class="preview-item-content flex-grow">
+                                    <h6 class="preview-subject ellipsis font-weight-normal">David Grey
+                                    </h6>
+                                    <p class="font-weight-light small-text text-muted mb-0">
+                                        The meeting is cancelled
+                                    </p>
+                                </div>
+                            </a>
+                            <a class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                    <img src="{%  static 'images/faces/face2.jpg' %}" alt="image" class="profile-pic">
+                                </div>
+                                <div class="preview-item-content flex-grow">
+                                    <h6 class="preview-subject ellipsis font-weight-normal">Tim Cook
+                                    </h6>
+                                    <p class="font-weight-light small-text text-muted mb-0">
+                                        New product launch
+                                    </p>
+                                </div>
+                            </a>
+                            <a class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                    <img src="{%  static 'images/faces/face3.jpg' %}" alt="image" class="profile-pic">
+                                </div>
+                                <div class="preview-item-content flex-grow">
+                                    <h6 class="preview-subject ellipsis font-weight-normal"> Johnson
+                                    </h6>
+                                    <p class="font-weight-light small-text text-muted mb-0">
+                                        Upcoming board meeting
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown mr-2">
+                        <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-toggle="dropdown">
+                            <i class="mdi mdi-email-open mx-0"></i>
+                            <span class="count bg-danger">1</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+                            <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
+                            <a class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                    <div class="preview-icon bg-success">
+                                        <i class="mdi mdi-information mx-0"></i>
+                                    </div>
+                                </div>
+                                <div class="preview-item-content">
+                                    <h6 class="preview-subject font-weight-normal">Application Error</h6>
+                                    <p class="font-weight-light small-text mb-0 text-muted">
+                                        Just now
+                                    </p>
+                                </div>
+                            </a>
+                            <a class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                    <div class="preview-icon bg-warning">
+                                        <i class="mdi mdi-settings mx-0"></i>
+                                    </div>
+                                </div>
+                                <div class="preview-item-content">
+                                    <h6 class="preview-subject font-weight-normal">Settings</h6>
+                                    <p class="font-weight-light small-text mb-0 text-muted">
+                                        Private message
+                                    </p>
+                                </div>
+                            </a>
+                            <a class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                    <div class="preview-icon bg-info">
+                                        <i class="mdi mdi-account-box mx-0"></i>
+                                    </div>
+                                </div>
+                                <div class="preview-item-content">
+                                    <h6 class="preview-subject font-weight-normal">New user registration</h6>
+                                    <p class="font-weight-light small-text mb-0 text-muted">
+                                        2 days ago
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+                    <span class="mdi mdi-menu"></span>
+                </button>
+            </div>
+            <div class="navbar-menu-wrapper navbar-search-wrapper d-none d-lg-flex align-items-center">
+                <ul class="navbar-nav mr-lg-2">
+                    <li class="nav-item nav-search d-none d-lg-block">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search Here..." aria-label="search" aria-describedby="search">
+                        </div>
+                    </li>
+                </ul>
+                <ul class="navbar-nav navbar-nav-right">
+                    <li class="nav-item nav-profile dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+                            <img src="{%  static 'images/faces/face11.jpg' %}" alt="profile"/>
+                            <span class="nav-profile-name">
+                                <!-- {% if  request.session.user_name %}
+                                {{ request.session.user_name }}
+                                {% else %}
+                                    欢迎游客
+                                {% endif %} -->
+                                {% if request.session.user_name %}
+                
+                                   <a href=""><span style="font-weight: bolder; "> 你好 
+                                    {{ request.session.user_name}}  </a> </span>
+			
+                
+                                {% else %}
+                                    
+                                        使用前请
+                                    
+                                {% endif %}
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                            {% if request.session.user_name %}
+                                
+                                <a class="dropdown-item" href="/user/Logout">
+                                    <i class="mdi mdi-logout text-primary"></i>
+                                    Logout
+                                </a>
+                            {% else %}
+                                <a class="dropdown-item" href="/user/login1">
+                                    <i class="mdi mdi-settings text-primary"></i>
+                                    login
+                                </a>
+                                
+                            {% endif %}
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link icon-link">
+                            <i class="mdi mdi-plus-circle-outline"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link icon-link">
+                            <i class="mdi mdi-web"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link icon-link">
+                            <i class="mdi mdi-clock-outline"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <h3 style="color:white;background: #355469;font-size: 25px;" align=" center" >用户管理</h3>
+        <!--加在这-->
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-1 col-xl-6 grid-margin stretch-card">
+                        <div class="row w-100 flex-grow">
+                            <div class="col-md-12 grid-margin stretch-card" style="background-color: #00bf78">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form action="/user/user_update" role="form" style="margin-top: 20px;" method="post" enctype="multipart/form-data">
+                                        <table  style="border-collapse:separate; border-spacing:20px;" align="left">
+
+                                            <tr>
+                                                <td style="font-size: 25px">用户名称：</td>
+                                                <td  style="font-size: 25px"><input type="text" readonly="readonly" value="{{ request.session.user_name}}" name="username"/></td>
+                                            </tr>
+
+                                            <tr>
+                                                <td  style="font-size: 25px">电子邮箱：</td>
+                                                <td  style="font-size: 25px"><input type="text" readonly="readonly" value="{{ user_data.email }}" name="email"/></td>
+                                            </tr>
+
+                                            <tr>
+                                                <td  style="font-size: 25px">电话号码：</td>
+                                                <td  style="font-size: 25px"><input type="text" value="{{ user_data.number }}   " name="number"/></td>
+                                            </tr>
+
+
+                                        </table>
+                                        <table>
+                                            <tr>
+                                                <td  style="font-size: 25px">修改头像：</td>
+                                            </tr>
+                                        </table>
+
+
+                                        <img src="{{ user_data.head_img }}" width="370" height="370">
+                                        <table>
+                                            <tr>
+                                                <td style="font-size: 25px" name="photo"><input type="file" name="head_file"/></td>
+                                            </tr>
+                                        </table>
+                                            <tr>
+                                                <td align="center"> <input style="color:white;font-size: 25px;background-color: #00bf78" type="submit" value="确认提交"/></td>
+                                            </tr>
+                                    </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+</div>
+{% if messages %}
+        <script>
+            {% for msg in messages %}
+                alert('{{ msg.message }}');
+            {% endfor %}
+        </script>
+{% endif %}
+<script src="{%  static 'vendors/js/vendor.bundle.base.js' %}"></script>
+<script src="{%  static 'vendors/chart.js/Chart.min.js' %}"></script>
+<script src="{%  static 'js/off-canvas.js' %}"></script>
+<script src="{%  static 'js/hoverable-collapse.js' %}"></script>
+<script src="{%  static 'js/template.js' %}"></script>
+<script src="{%  static 'js/dashboard.js' %}"></script>
+</body>
+</html>

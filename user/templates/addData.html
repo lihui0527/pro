@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>基于攻击链路径安全防护系统</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script type="text/javascript" src="scripts/jquery/jquery-1.7.1.js"></script>
+<link href="style/authority/basic_layout.css" rel="stylesheet" type="text/css">
+<link href="style/authority/common_style.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="scripts/authority/commonAll.js"></script>
+<script type="text/javascript" src="scripts/jquery/jquery-1.4.4.min.js"></script>
+<script src="scripts/My97DatePicker/WdatePicker.js" type="text/javascript" defer="defer"></script>
+<script type="text/javascript" src="scripts/artDialog/artDialog.js?skin=default"></script>
+<script type="text/javascript" >
+	function fun(){
+//            新建一个date对象
+		 var date =new Date();
+		 var year = date.getFullYear();
+		 var month = date.getMonth();
+		 var day = date.getDate();
+		 var hour = date.getHours();
+		 var minutes = date.getMinutes();
+		 var seconds = date.getSeconds();
+		 var week = date.getDay();
+		if(week==1){
+			week="一";
+		}if(week==2){
+			week="二";
+		}
+		if(week==3){
+			week="三";
+		}
+		if(week==4){
+			week="四";
+		}
+		if(week==5){
+			week="五";
+		}
+		if(week==6){
+			week="六";
+		}
+		if(week==7){
+			week="日";
+		}
+		 var am="";
+		 if(hour>=0 && hour<=12){
+			 am = "AM";
+		 }else{
+			 am = "PM"
+		 }
+		 document.getElementById("date").innerHTML=year+"年"+month+"月"+day+"日"+" "+hour+":"+minutes+":"+seconds+" "+am+" 星期"+week;
+
+	 }
+	 onload = function(){
+		 setInterval("fun()",100);
+	 }
+ </script>
+</head>
+<body>
+<form id="submitForm" name="submitForm" action="/xngzf/archives/initFangyuan.action" method="post">
+	<input type="hidden" name="fyID" value="14458625716623" id="fyID"/>
+	<div align="left" id="container" style="background-color: rgba(44,85,105,0.75);width: 100%">
+		<div align="center" id="nav_links" style="font-size: 20px;color: #ffffff;border: none">
+			当前位置：基础数据&nbsp;>&nbsp;<span style="color: #ffffff;font-size: 20px;">水质信息</span>
+			<div id="page_close">
+				<a href="javascript:parent.$.fancybox.close();">
+					<img src="images/common/page_close.png" width="20" height="20" style="vertical-align: text-top;"/>
+				</a>
+			</div>
+		</div>
+		<div class="ui_content" style="color: #2c5569">
+			<table style="background-color: #ffffff; border-collapse:separate; border-spacing:15px;" cellspacing="0" cellpadding="0" width="100%" align="left" border="0">
+				<tr>
+					<td class="ui_text_rt" width="80">流域</td>
+					<td class="ui_text_lt">
+						<select style="width:60%" name="fangyuanEntity.fyXqCode" id="fyXq" class="ui_select01" onchange="getFyDhListByFyXqCode();">
+							<option value="">--请选择--</option>
+							<option value="6" selected="selected">请选择</option>
+							<option value="77">余江</option>
+							<option value="83">小江</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td class="ui_text_rt">监测站</td>
+					<td class="ui_text_lt">
+						<select  style="width:60%" name="fangyuanEntity.fyDhCode" id="fyDh" class="ui_select01">
+							<option value="">--请选择--</option>
+							<option value="16" selected="selected">请选择</option>
+							<option value="17">上游1</option>
+							<option value="69">上游2号</option>
+							<option value="72">中游1号</option>
+							<option value="73">中游2号</option>
+							<option value="74">下游一号</option>
+							<option value="75">下游二号</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td class="ui_text_rt">流量</td>
+					<td class="ui_text_lt">
+						<input style="width:60%" type="text" id="fyCh" name="fangyuanEntity.fyCh" value="2"  class="ui_input_txt01"/>
+					</td>
+				</tr>
+				<tr>
+					<td class="ui_text_rt">TP</td>
+					<td class="ui_text_lt">
+						<input style="width:60%"  type="text" id="fyJizuMj" name="fangyuanEntity.fyJizuMj" value="67.47" class="ui_input_txt01"/>&nbsp;%
+					</td>
+				</tr>
+				<tr>
+					<td class="ui_text_rt">NH4-N</td>
+					<td class="ui_text_lt">
+						<input  style="width:60%" type="text" id="fyJizuMj1" name="fangyuanEntity.fyJizuMj" value="67.47" class="ui_input_txt01"/>&nbsp;%
+					</td>
+				</tr>
+				<tr>
+					<td class="ui_text_rt">COD</td>
+					<td class="ui_text_lt">
+						<input style="width:60%"  type="text" id="fyJizuMj2" name="fangyuanEntity.fyJizuMj" value="67.47" class="ui_input_txt01"/>&nbsp;%
+					</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td class="ui_text_lt">
+					</td>
+				</tr>
+				<tr align="center">
+					<td>&nbsp;</td>
+					<td align="center" class="ui_text_lt">
+						&nbsp;<input id="submitbutton" type="button" value="提交" class="ui_input_btn01"/>
+						&nbsp;<input id="cancelbutton" type="button" value="取消" class="ui_input_btn01"/>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</form>
+
+</body>
+</html>

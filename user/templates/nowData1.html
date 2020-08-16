@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load staticfiles %}
+    {% load static %}
+	<!-- Required meta tags -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>基于攻击链路径安全防护系统</title>
+	<!-- base:css -->
+	<link rel="stylesheet" href="{%  static './vendors/mdi/css/materialdesignicons.min.css' %}">
+    <link rel="stylesheet" href=" {%  static 'vendors/css/vendor.bundle.base.css' %}">
+	<!-- endinject -->
+	<!-- plugin css for this page -->
+	<!-- End plugin css for this page -->
+	<!-- inject:css -->
+{#	<link rel="stylesheet" href="css/style1.css">?#}
+	<!-- endinject -->
+    <link rel="stylesheet" href="{%  static 'css/style1.css' %}">
+	<link rel="shortcut icon" href="{%  static 'images/logo1.png' %}" />
+<script src="{%  static 'vendors/js/vendor.bundle.base.js '%}"></script>
+<script src="{%  static 'vendors/chart.js/Chart.min.js ' %}"></script>
+<script type="text/javascript" src="{%  static 'scripts/jquery/jquery-1.7.1.js' %}"></script>
+<link href="{%  static 'style/authority/basic_layout.css' %}" rel="stylesheet" type="text/css">
+<link href="{%  static 'style/authority/common_style.css' %}" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="{%  static 'scripts/authority/commonAll.js' %}"></script>
+<script type="text/javascript" src="{%  static 'scripts/fancybox/jquery.fancybox-1.3.4.js' %}"></script>
+<script type="text/javascript" src="{%  static 'scripts/fancybox/jquery.fancybox-1.3.4.pack.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{%  static 'style/authority/jquery.fancybox-1.3.4.css' %}" media="screen"></link>
+<script type="text/javascript" src="{%  static 'scripts/artDialog/artDialog.js?skin=default' %}"></script>
+<link rel="stylesheet" href="../static/css/pintuer.css">
+<link rel="stylesheet" href="../static/css/admin.css">
+<!-- <script src="../static/js/jquery.js"></script> -->
+<script src="../static/js/pintuer.js"></script>  
+<script type="text/javascript" >
+	function fun(){
+//            新建一个date对象
+		 var date =new Date();
+		 var year = date.getFullYear();
+		 var month = date.getMonth()+1;
+		 var day = date.getDate();
+		 var hour = date.getHours();
+		 var minutes = date.getMinutes();
+		 var seconds = date.getSeconds();
+		 var week = date.getDay();
+		if(week==1){
+			week="一";
+		}if(week==2){
+			week="二";
+		}
+		if(week==3){
+			week="三";
+		}
+		if(week==4){
+			week="四";
+		}
+		if(week==5){
+			week="五";
+		}
+		if(week==6){
+			week="六";
+		}
+		if(week==7){
+			week="日";
+		}
+		 var am="";
+		 if(hour>=0 && hour<=12){
+			 am = "AM";
+		 }else{
+			 am = "PM"
+		 }
+		 document.getElementById("date").innerHTML=year+"年"+month+"月"+day+"日"+" "+hour+":"+minutes+":"+seconds+" "+am+" 星期"+week;
+
+	 }
+	 onload = function(){
+		 setInterval("fun()",100);
+	 }
+ </script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		/** 新增   **/
+	    $("#addBtn").fancybox({
+	    	'href'  : 'addData.html',
+	    	'width' : 650,
+	        'height' : 500,
+	        'type' : 'iframe',
+	        'hideOnOverlayClick' : false,
+	        'showCloseButton' : false,
+	        'onClosed' : function() { 
+	        	window.location.href = 'nowData1.html';
+	        }
+	    });
+		
+	    /** 导入  **/
+	    $("#importBtn").fancybox({
+	    	'href'  : '/xngzf/archives/importFangyuan.action',
+	    	'width' : 633,
+	        'height' : 260,
+	        'type' : 'iframe',
+	        'hideOnOverlayClick' : false,
+	        'showCloseButton' : false,
+	        'onClosed' : function() { 
+	        	window.location.href = 'nowData1.html';
+	        }
+	    });
+		
+	    /**编辑   **/
+	    $("a.edit").fancybox({
+	    	'width' : 733,
+	        'height' : 530,
+	        'type' : 'iframe',
+	        'hideOnOverlayClick' : false,
+	        'showCloseButton' : false,
+	        'onClosed' : function() { 
+	        	window.location.href = 'nowData1.html';
+	        }
+	    });
+	});
+	/** 用户角色   **/
+	var userRole = '';
+
+	/** 模糊查询来电用户  **/
+	function search(){
+		$("#submitForm").attr("action", "house_list.html?page=" + 1).submit();
+	}
+
+	/** 新增   **/
+	function add(){
+		$("#submitForm").attr("action", "/xngzf/archives/luruFangyuan.action").submit();	
+	}
+	 
+	/** Excel导出  **/
+	function exportExcel(){
+		if( confirm('您确定要导出吗？') ){
+			var fyXqCode = $("#fyXq").val();
+			var fyXqName = $('#fyXq option:selected').text();
+//	 		alert(fyXqCode);
+			if(fyXqCode=="" || fyXqCode==null){
+				$("#fyXqName").val("");
+			}else{
+//	 			alert(fyXqCode);
+				$("#fyXqName").val(fyXqName);
+			}
+			$("#submitForm").attr("action", "/xngzf/archives/exportExcelFangyuan.action").submit();	
+		}
+	}
+	
+	/** 删除 **/
+	function del(fyID){
+		// 非空判断
+		if(fyID == '') return;
+		if(confirm("您确定要删除吗？")){
+			$("#submitForm").attr("action", "/xngzf/archives/delFangyuan.action?fyID=" + fyID).submit();			
+		}
+	}
+	
+	/** 批量删除 **/
+	function batchDel(){
+		if($("input[name='IDCheck']:checked").size()<=0){
+			art.dialog({icon:'error', title:'友情提示', drag:false, resize:false, content:'至少选择一条', ok:true,});
+			return;
+		}
+		// 1）取出用户选中的checkbox放入字符串传给后台,form提交
+		var allIDCheck = "";
+		$("input[name='IDCheck']:checked").each(function(index, domEle){
+			bjText = $(domEle).parent("td").parent("tr").last().children("td").last().prev().text();
+// 			alert(bjText);
+			// 用户选择的checkbox, 过滤掉“已审核”的，记住哦
+			if($.trim(bjText)=="已审核"){
+// 				$(domEle).removeAttr("checked");
+				$(domEle).parent("td").parent("tr").css({color:"red"});
+				$("#resultInfo").html("已审核的是不允许您删除的，请联系管理员删除！！！");
+// 				return;
+			}else{
+				allIDCheck += $(domEle).val() + ",";
+			}
+		});
+		// 截掉最后一个","
+		if(allIDCheck.length>0) {
+			allIDCheck = allIDCheck.substring(0, allIDCheck.length-1);
+			// 赋给隐藏域
+			$("#allIDCheck").val(allIDCheck);
+			if(confirm("您确定要批量删除这些记录吗？")){
+				// 提交form
+				$("#submitForm").attr("action", "/xngzf/archives/batchDelFangyuan.action").submit();
+			}
+		}
+	}
+
+	/** 普通跳转 **/
+	function jumpNormalPage(page){
+		$("#submitForm").attr("action", "house_list.html?page=" + page).submit();
+	}
+	
+	/** 输入页跳转 **/
+	function jumpInputPage(totalPage){
+		// 如果“跳转页数”不为空
+		if($("#jumpNumTxt").val() != ''){
+			var pageNum = parseInt($("#jumpNumTxt").val());
+			// 如果跳转页数在不合理范围内，则置为1
+			if(pageNum<1 | pageNum>totalPage){
+				art.dialog({icon:'error', title:'友情提示', drag:false, resize:false, content:'请输入合适的页数，\n自动为您跳到首页', ok:true,});
+				pageNum = 1;
+			}
+			$("#submitForm").attr("action", "house_list.html?page=" + pageNum).submit();
+		}else{
+			// “跳转页数”为空
+			art.dialog({icon:'error', title:'友情提示', drag:false, resize:false, content:'请输入合适的页数，\n自动为您跳到首页', ok:true,});
+			$("#submitForm").attr("action", "house_list.html?page=" + 1).submit();
+		}
+	}
+</script>
+<style>
+	.alt td{ background:black !important;}
+</style>
+</head>
+<body>
+<div class="container-scroller d-flex">
+	<nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+            <li class="nav-item sidebar-category">
+                <p align="center"  style="font-size: 30px ;letter-spacing:1px;">基于攻击链路径</p>
+                </br>
+                <p align="center"  style="font-size:30px ;letter-spacing:1px ">安全防护系统</p>
+                <span></span>
+            </li>
+            <li class="nav-item sidebar-category">
+                <a href="index.html">
+                    <input align="center" type="button" value="Components"  style="border: none;background: #2c5569;color: #ffffff" >
+                </a>
+                <span></span>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                    <i class="mdi mdi-palette menu-icon"></i>
+					<span class="menu-title" style="font-size:25px">
+						数据监测
+					</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="ui-basic">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="/user/nowData1" style="font-size:20px">实时数据</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="/user/historyData2" style="font-size:20px">历史数据</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="/user/dataPhoto"  style="font-size:20px">数据报表</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user/pollutionTracing">
+                    <i class="mdi mdi-view-headline menu-icon"></i>
+                    <span class="menu-title"  style="font-size:25px">安全溯源</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user/pollutionPredict">
+                    <i class="mdi mdi-chart-pie menu-icon"></i>
+                    <span class="menu-title" style="font-size:25px">安全预测</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic1">
+                    <i class="mdi mdi-palette menu-icon"></i>
+                    <span class="menu-title"style="font-size:25px">系统设置</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="ui-basic1">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="/user/userSystem" style="font-size:20px">用户管理</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="/user/setSystem" style="font-size:20px">系统管理</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+        <!-- partial:./partials/_navbar.html -->
+        <nav class="navbar col-lg-12 col-12 px-0 py-0 py-lg-4 d-flex flex-row">
+            <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+                <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                    <span class="mdi mdi-menu"></span>
+                </button>
+                <div class="navbar-brand-wrapper">
+                    <a class="navbar-brand brand-logo" href="index.html"><img src="{%  static 'images/log2.gif' %}"  width="120px" height="100px" alt="logo"/></a>
+                </div>
+                <h4 class="font-weight-bold mb-0 d-none d-md-block mt-1">今天也要加油喔！</h4>
+                <ul class="navbar-nav navbar-nav-right">
+                    <li class="nav-item">
+                        <h4 style="color: white;font-size: 15px"><p id="date"></p></h4>
+                    </li>
+                    <li class="nav-item dropdown mr-1">
+                        <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-toggle="dropdown">
+                            <i class="mdi mdi-calendar mx-0"></i>
+                            <span class="count bg-info">2</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
+                            <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
+                            <a class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                    <img src="{%  static 'images/faces/face4.jpg' %}" alt="image" class="profile-pic">
+                                </div>
+                                <div class="preview-item-content flex-grow">
+                                    <h6 class="preview-subject ellipsis font-weight-normal">David Grey
+                                    </h6>
+                                    <p class="font-weight-light small-text text-muted mb-0">
+                                        The meeting is cancelled
+                                    </p>
+                                </div>
+                            </a>
+                            <a class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                    <img src="{%  static 'images/faces/face2.jpg' %}" alt="image" class="profile-pic">
+                                </div>
+                                <div class="preview-item-content flex-grow">
+                                    <h6 class="preview-subject ellipsis font-weight-normal">Tim Cook
+                                    </h6>
+                                    <p class="font-weight-light small-text text-muted mb-0">
+                                        New product launch
+                                    </p>
+                                </div>
+                            </a>
+                            <a class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                    <img src="{%  static 'images/faces/face3.jpg" alt="image' %}" class="profile-pic">
+                                </div>
+                                <div class="preview-item-content flex-grow">
+                                    <h6 class="preview-subject ellipsis font-weight-normal"> Johnson
+                                    </h6>
+                                    <p class="font-weight-light small-text text-muted mb-0">
+                                        Upcoming board meeting
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown mr-2">
+                        <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-toggle="dropdown">
+                            <i class="mdi mdi-email-open mx-0"></i>
+                            <span class="count bg-danger">1</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+                            <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
+                            <a class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                    <div class="preview-icon bg-success">
+                                        <i class="mdi mdi-information mx-0"></i>
+                                    </div>
+                                </div>
+                                <div class="preview-item-content">
+                                    <h6 class="preview-subject font-weight-normal">Application Error</h6>
+                                    <p class="font-weight-light small-text mb-0 text-muted">
+                                        Just now
+                                    </p>
+                                </div>
+                            </a>
+                            <a class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                    <div class="preview-icon bg-warning">
+                                        <i class="mdi mdi-settings mx-0"></i>
+                                    </div>
+                                </div>
+                                <div class="preview-item-content">
+                                    <h6 class="preview-subject font-weight-normal">Settings</h6>
+                                    <p class="font-weight-light small-text mb-0 text-muted">
+                                        Private message
+                                    </p>
+                                </div>
+                            </a>
+                            <a class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                    <div class="preview-icon bg-info">
+                                        <i class="mdi mdi-account-box mx-0"></i>
+                                    </div>
+                                </div>
+                                <div class="preview-item-content">
+                                    <h6 class="preview-subject font-weight-normal">New user registration</h6>
+                                    <p class="font-weight-light small-text mb-0 text-muted">
+                                        2 days ago
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+                    <span class="mdi mdi-menu"></span>
+                </button>
+            </div>
+            <div class="navbar-menu-wrapper navbar-search-wrapper d-none d-lg-flex align-items-center">
+                <ul class="navbar-nav mr-lg-2">
+                    <li class="nav-item nav-search d-none d-lg-block">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search Here..." aria-label="search" aria-describedby="search">
+                        </div>
+                    </li>
+                </ul>
+                <ul class="navbar-nav navbar-nav-right">
+                    <li class="nav-item nav-profile dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+                            <img src="{%  static 'images/faces/face11.jpg' %}" alt="profile"/>
+                            <span class="nav-profile-name">
+                                <!-- {% if  request.session.user_name %}
+                                {{ request.session.user_name }}
+                                {% else %}
+                                    欢迎游客
+                                {% endif %} -->
+                                {% if request.session.user_name %}
+                
+                                   <a href=""><span style="font-weight: bolder; "> 你好 
+                                    {{ request.session.user_name}}  </a> </span>
+			
+                
+                                {% else %}
+                                    
+                                        使用前请
+                                    
+                                {% endif %}
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                            {% if request.session.user_name %}
+                                
+                                <a class="dropdown-item" href="/user/Logout">
+                                    <i class="mdi mdi-logout text-primary"></i>
+                                    Logout
+                                </a>
+                            {% else %}
+                                <a class="dropdown-item" href="/user/login1">
+                                    <i class="mdi mdi-settings text-primary"></i>
+                                    login
+                                </a>
+                                
+                            {% endif %}
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link icon-link">
+                            <i class="mdi mdi-plus-circle-outline"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link icon-link">
+                            <i class="mdi mdi-web"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link icon-link">
+                            <i class="mdi mdi-clock-outline"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+		<!--加在这-->
+		<!--<h1 style="color:white;background: #355469" align=" center" >&nbsp;&nbsp;&nbsp;</h1>-->
+        <h3 style="color:white;background: #355469;font-size: 25px;" align=" center" >predict data</h3>
+	<form id="submitForm" name="submitForm" action="/user/nowData_filter"  role="form" style="margin-top: 20px;" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="allIDCheck" value="" id="allIDCheck"/>
+		<input type="hidden" name="fangyuanEntity.fyXqName" value="" id="fyXqName"/>
+		<div id="container">
+			<div class="ui_content">
+				<div class="ui_text_indent">
+					<div id="box_border">
+						<div id="box_top">搜索</div>
+						<div id="box_center">
+							协议类型
+							<select name="protocol_type"  id="fyXq" class="ui_select01" onchange="getFyDhListByFyXqCode();">
+                                <option value="">--请选择--</option>
+                                <option value="0">tcp</option>
+                                <option value="1">udp</option>
+                                <option value="2">icmp</option>
+                            </select>
+							
+							
+							登录状态
+							<select name="logged_in" id="fyDh" class="ui_select01">
+                                <option  value="" >--请选择--</option>
+                                <option value="1">成功</option>
+                                <option value="0">失败</option>
+                                
+                            </select>
+							
+						</div>
+						<div id="box_bottom">
+							<input type="submit" value="查询" class="ui_input_btn01" onclick="" id="sub_btn" /> 
+							<!-- <input type="button" value="新增" class="ui_input_btn01" id="addBtn" /> -->
+							<input type="submit" value="删除" class="ui_input_btn01" onclick="batchDel();" /> 
+							<a href="/user/traceData/?uid={{ request.session.uid  }}"><input type="botton" value="trace data" class="ui_input_btn01" onclick="" id="sub_btn" /></a>
+							<!-- <td><div class="button-group"> <a class="button border-red" href="" onclick=""><span class="icon-trash-o"></span> 删除</a> </div></td> -->
+							<!-- <a class="ui_input_btn01" id="sub_btn" href="/user/nowData_del/?id={{ data.id}}">删除</a> -->
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="ui_content">
+				<div class="ui_tb">
+					<table class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="0">
+								<tr>
+									<th width="30"><input type="checkbox" id="all" onclick="selectOrClearAllCheckbox(this);" />
+									</th>
+									<th style="font-size:10pt">持续时间</th>
+									<th style="font-size:10pt">协议类型</th>
+									<th style="font-size:10pt">连接状态</th>
+									<th style="font-size:10pt">错误分段数量</th>
+									<th style="font-size:10pt">加急包数量</th>
+									<th style="font-size:10pt">hot</th>
+									<th style="font-size:10pt">num_failed_logins</th>
+									<th style="font-size:10pt">登录状态</th>
+									<th style="font-size:10pt">root权限</th>
+									<th style="font-size:10pt">访问是否正常</th>
+									<th style="font-size:10pt">操作</th>
+								</tr>
+									{% for data in page.object_list %}
+								<tr>
+									<td><input type="checkbox" name="IDCheck" value="14458579642011" class="acb" /></td>
+									<td style="font-size:10pt">
+										{{ data.duration }}s
+									</td>
+									<td style="font-size:10pt">
+										{% if data.protocol_type == 0 %}
+											tcp
+										{% elif data.protocol_type == 1 %}
+											udp
+										{% else %}
+										ICMP
+										
+										{% endif %}
+									</td>
+									<td style="font-size:10pt">
+										{% if data.flag == 1%}
+											连接正常
+										{% else %}
+											连接失败
+										{% endif %}
+									</td>						
+									<td style="font-size:10pt">
+										{{data.wrong_fragment}}
+									</td>
+									<td style="font-size:10pt">
+										{{data.urgent}}
+									</td>
+									<td style="font-size:10pt">
+										{{data.hot}}次
+									</td>
+									<td style="font-size:10pt">
+										{{data.num_failed_logins}}次
+									</td>
+									<td style="font-size:10pt">
+										{% if data.logged_in == 1%}
+										  已登陆
+										{% else %}
+										 未登录
+										{% endif %}
+										
+									</td>
+									<td style="font-size:10pt">
+										{% if data.root_shell == 1%}
+											有root权限
+										{% else %}
+											无root权限
+										{% endif %}
+									</td>
+									<td style="font-size:10pt">
+										{% if data.result == 1%}
+										   正常
+										{% else %}
+											不正常
+										{% endif%}
+									</td>
+									<td style="font-size:10pt">
+										<!-- <a href="addData.html?fyID=14458579642011" class="edit">编辑</a>								 -->
+										<a href="/user/nowData_del/?id={{ data.id}}">删除</a>
+									</td>
+									
+								</tr>
+								
+									{% endfor %}											
+					</table>
+					
+					<ul class="pagination">
+						{% if page.has_previous %}
+							<li>
+							<a href="/user/nowData1/?pindex={{ page.previous_page_number }}">&lt;上一页</a>
+							</li>
+						{% endif %}
+				
+						{% for pindex in page.paginator.page_range %}
+							<li >
+							{% if pindex == page.number %}
+								第{{ pindex }}页
+							{% else %}
+								<a href="/user/nowData1/?pindex={{ pindex }}">第{{ pindex }}页</a>
+							{% endif %}
+							</li>
+						{% endfor %}
+				
+							<li>
+								{% if page.has_next %}
+								<a href="/user/nowData1/?pindex={{ page.next_page_number }}">&gt;下一页</a>
+								{% endif %}
+							</li>
+				
+					</ul>
+
+					<ul class="" > 共{{ len }}条数据 </ul>
+				</div>
+				<!-- <div class="ui_tb_h30"> -->
+					<!-- <div class="ui_flt" style="height: 30px; line-height: 30px;">
+						共有
+						<span class="ui_txt_bold04">90</span>
+						条记录，当前第
+						<span class="ui_txt_bold04">1
+						/
+						9</span>
+						页
+					</div> -->
+					<!-- <div class="ui_frt"> -->
+						<!--    如果是第一页，则只显示下一页、尾页 -->
+						
+							<!-- <input type="button" value="首页" class="ui_input_btn01" />
+							<input type="button" value="上一页" class="ui_input_btn01" />
+							<input type="button" value="下一页" class="ui_input_btn01"
+								onclick="jumpNormalPage(2);" />
+							<input type="button" value="尾页" class="ui_input_btn01"
+								onclick="jumpNormalPage(9);" />
+						 -->
+						
+						
+						<!--     如果是最后一页，则只显示首页、上一页 -->
+						
+						<!-- 转到第<input type="text" id="jumpNumTxt" class="ui_input_txt01" />页
+							 <input type="button" class="ui_input_btn01" value="跳转" onclick="jumpInputPage(9);" />
+					</div> -->
+					
+				<!-- </div> -->
+			</div>
+		</div>
+		
+	</form>
+	{% if messages %}
+        <script>
+            {% for msg in messages %}
+                alert('{{ msg.message }}');
+            {% endfor %}
+        </script>
+	{% endif %}
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    {% load staticfiles %}
+    {% load static %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>基于攻击链路径安全防护系统</title>
+    <!-- base:css -->
+    <link rel="stylesheet" href="{%  static 'vendors/mdi/css/materialdesignicons.min.css' %}">
+    <link rel="stylesheet" href="{%  static 'vendors/css/vendor.bundle.base.css' %}">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="{%  static 'css/style1.css' %}">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="{%  static 'images/logo1.png' %}" />
+    <meta name="keywords" content="Ultra Modern Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- Bootstrap Core CSS -->
+    <!--<link href="css1/bootstrap.css" rel='stylesheet' type='text/css' />-->
+    <!-- Custom CSS -->
+    <link href="{%  static 'css1/style.css' %}" rel='stylesheet' type='text/css' />
+    <!-- font CSS -->
+    <!-- font-awesome icons -->
+    <link href="{%  static 'css1/font-awesome.css' %}" rel="stylesheet">
+    <!-- //font-awesome icons -->
+    <!--skycons-icons-->
+    <script src="{%  static 'js/skycons.js' %}"></script>
+    <!--//skycons-icons-->
+
+    <!-- js-->
+    <script type="text/javascript" >
+        function fun(){
+ //            新建一个date对象
+             var date =new Date();
+             var year = date.getFullYear();
+             var month = date.getMonth()+1;
+             var day = date.getDate();
+             var hour = date.getHours();
+             var minutes = date.getMinutes();
+             var seconds = date.getSeconds();
+             var week = date.getDay();
+            if(week==1){
+                week="一";
+            }if(week==2){
+                week="二";
+            }
+            if(week==3){
+                week="三";
+            }
+            if(week==4){
+                week="四";
+            }
+            if(week==5){
+                week="五";
+            }
+            if(week==6){
+                week="六";
+            }
+            if(week==7){
+                week="日";
+            }
+             var am="";
+             if(hour>=0 && hour<=12){
+                 am = "AM";
+             }else{
+                 am = "PM"
+             }
+             document.getElementById("date").innerHTML=year+"年"+month+"月"+day+"日"+" "+hour+":"+minutes+":"+seconds+" "+am+" 星期"+week;
+ 
+         }
+         onload = function(){
+             setInterval("fun()",100);
+         }
+     </script>
+    <script src="{%  static 'js/bootstrap.js' %}"></script>
+    <script src="{%  static 'js/jquery-1.11.1.min.js' %}"></script>
+    <script src="{%  static 'js/modernizr.custom.js' %}"></script>
+    <!--webfonts-->
+    <link href='https://fonts.googleapis.com/css1?family=Comfortaa:400,700,300' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css1?family=Muli:400,300,300italic,400italic' rel='stylesheet' type='text/css'>
+    <!--//webfonts-->
+    <!-- Metis Menu -->
+    <script src="{%  static 'js/metisMenu.min.js'  %}"></script>
+    <script src="{%  static 'js/custom.js' %}"></script>
+    <link href="{%  static 'css1/custom.css' %}" rel="stylesheet">
+    <!--//Metis Menu -->
+    <link href="{%  static 'css1/jquerysctipttop.css' %}" rel="stylesheet" type="text/css">
+    <script src="{%  static 'js/jquery.sparkline.min.js' %}"></script>
+    <script src="{%  static 'js/echarts/echarts.min.js' %}"></script>
+    <script type="text/javascript">
+        /* <![CDATA[ */
+        $(function() {
+            /** This code runs when everything has been loaded on the page */
+            /* Inline sparklines take their values from the contents of the tag */
+            $('.inlinesparkline').sparkline();
+
+            /* Sparklines can also take their values from the first argument passed to the sparkline() function */
+            var myvalues = [10,8,5,7,4,4,1];
+            $('.dynamicsparkline').sparkline(myvalues);
+
+            /* The second argument gives options such as specifying you want a bar chart11 */
+            $('.dynamicbar').sparkline(myvalues, {type: 'bar', barColor: '#fff'} );
+
+            /* Use 'html' instead of an array of values to pass options to a sparkline with data in the tag */
+            $('.inlinebar').sparkline('html', {type: 'bar', barColor: '#fff'} );
+
+        });
+        /* ]]> */
+    </script>
+    <script src="{%  static 'js/Chart.js' %}"></script>
+
+    <!--pie-chart--->
+    <script src="{%  static 'js/pie-chart.js' %}" type="text/javascript"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#demo-pie-1').pieChart({
+                barColor: '#68b828',
+                trackColor: '#eee',
+                lineCap: 'round',
+                lineWidth: 10,
+                onStep: function (from, to, percent) {
+                    $(this.element).find('.pie-value').text(Math.round(percent) + '%');
+                }
+            });
+
+            $('#demo-pie-2').pieChart({
+                barColor: '#7c38bc',
+                trackColor: '#eee',
+                lineCap: 'butt',
+                lineWidth: 10,
+                onStep: function (from, to, percent) {
+                    $(this.element).find('.pie-value').text(Math.round(percent) + '%');
+                }
+            });
+
+            $('#demo-pie-3').pieChart({
+                barColor: '#0e62c7',
+                trackColor: '#eee',
+                lineCap: 'square',
+                lineWidth: 10,
+                onStep: function (from, to, percent) {
+                    $(this.element).find('.pie-value').text(Math.round(percent) + '%');
+                }
+            });
+        });
+
+    </script>
+</head>
+<body>
+<div class="container-scroller d-flex">
+    <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+            <li class="nav-item sidebar-category">
+                <p align="center"  style="font-size: 30px ;letter-spacing:1px;">基于攻击链路径</p>
+                </br>
+                <p align="center"  style="font-size:30px ;letter-spacing:1px ">安全防护系统</p>
+                <span></span>
+            </li>
+            <li class="nav-item sidebar-category">
+                <a href="index.html">
+                    <input align="center" type="button" value="Components"  style="border: none;background: #2c5569;color: #ffffff" >
+                </a>
+                <span></span>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                    <i class="mdi mdi-palette menu-icon"></i>
+                    <span class="menu-title" style="font-size:25px">数据监测</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="ui-basic">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="/user/nowData1" style="font-size:20px">实时数据</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="/user/historyData2" style="font-size:20px">历史数据</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="/user/dataPhoto"  style="font-size:20px">数据报表</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user/pollutionTracing">
+                    <i class="mdi mdi-view-headline menu-icon"></i>
+                    <span class="menu-title"  style="font-size:25px">安全溯源</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user/pollutionPredict">
+                    <i class="mdi mdi-chart-pie menu-icon"></i>
+                    <span class="menu-title" style="font-size:25px">安全预测</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic1">
+                    <i class="mdi mdi-palette menu-icon"></i>
+                    <span class="menu-title"style="font-size:25px">系统设置</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="ui-basic1">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="/user/userSystem" style="font-size:20px">用户管理</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="/user/setSystem" style="font-size:20px">系统管理</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+        <!-- partial:./partials/_navbar.html -->
+        <nav class="navbar col-lg-12 col-12 px-0 py-0 py-lg-4 d-flex flex-row">
+            <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+                <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                    <span class="mdi mdi-menu"></span>
+                </button>
+                <div class="navbar-brand-wrapper">
+                    <a class="navbar-brand brand-logo" href="index.html"></a>
+                </div>
+                <h4 class="font-weight-bold mb-0 d-none d-md-block mt-1">今天也要加油喔！</h4>
+                <ul class="navbar-nav navbar-nav-right">
+                    <li class="nav-item">
+                        <h4 style="color: white;font-size: 15px"><p id="date"></p></h4>
+                    </li>
+                    <li class="nav-item dropdown mr-1">
+                        <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-toggle="dropdown">
+                            <i class="mdi mdi-calendar mx-0"></i>
+                            <span class="count bg-info">2</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
+                            <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
+                            <a class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                    <img src="{%  static 'images/faces/face4.jpg' %}" alt="image" class="profile-pic">
+                                </div>
+                                <div class="preview-item-content flex-grow">
+                                    <h6 class="preview-subject ellipsis font-weight-normal">David Grey
+                                    </h6>
+                                    <p class="font-weight-light small-text text-muted mb-0">
+                                        The meeting is cancelled
+                                    </p>
+                                </div>
+                            </a>
+                            <a class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                    <img src="{%  static 'images/faces/face2.jpg' %}" alt="image" class="profile-pic">
+                                </div>
+                                <div class="preview-item-content flex-grow">
+                                    <h6 class="preview-subject ellipsis font-weight-normal">Tim Cook
+                                    </h6>
+                                    <p class="font-weight-light small-text text-muted mb-0">
+                                        New product launch
+                                    </p>
+                                </div>
+                            </a>
+                            <a class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                    <img src="{%  static 'images/faces/face3.jpg' %}" alt="image" class="profile-pic">
+                                </div>
+                                <div class="preview-item-content flex-grow">
+                                    <h6 class="preview-subject ellipsis font-weight-normal"> Johnson
+                                    </h6>
+                                    <p class="font-weight-light small-text text-muted mb-0">
+                                        Upcoming board meeting
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown mr-2">
+                        <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-toggle="dropdown">
+                            <i class="mdi mdi-email-open mx-0"></i>
+                            <span class="count bg-danger">1</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+                            <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
+                            <a class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                    <div class="preview-icon bg-success">
+                                        <i class="mdi mdi-information mx-0"></i>
+                                    </div>
+                                </div>
+                                <div class="preview-item-content">
+                                    <h6 class="preview-subject font-weight-normal">Application Error</h6>
+                                    <p class="font-weight-light small-text mb-0 text-muted">
+                                        Just now
+                                    </p>
+                                </div>
+                            </a>
+                            <a class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                    <div class="preview-icon bg-warning">
+                                        <i class="mdi mdi-settings mx-0"></i>
+                                    </div>
+                                </div>
+                                <div class="preview-item-content">
+                                    <h6 class="preview-subject font-weight-normal">Settings</h6>
+                                    <p class="font-weight-light small-text mb-0 text-muted">
+                                        Private message
+                                    </p>
+                                </div>
+                            </a>
+                            <a class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                    <div class="preview-icon bg-info">
+                                        <i class="mdi mdi-account-box mx-0"></i>
+                                    </div>
+                                </div>
+                                <div class="preview-item-content">
+                                    <h6 class="preview-subject font-weight-normal">New user registration</h6>
+                                    <p class="font-weight-light small-text mb-0 text-muted">
+                                        2 days ago
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+                    <span class="mdi mdi-menu"></span>
+                </button>
+            </div>
+            <div class="navbar-menu-wrapper navbar-search-wrapper d-none d-lg-flex align-items-center">
+                <ul class="navbar-nav mr-lg-2">
+                    <li class="nav-item nav-search d-none d-lg-block">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search Here..." aria-label="search" aria-describedby="search">
+                        </div>
+                    </li>
+                </ul>
+                <ul class="navbar-nav navbar-nav-right">
+                    <li class="nav-item nav-profile dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+                            <img src="{%  static 'images/faces/face11.jpg' %}" alt="profile"/>
+                            <span class="nav-profile-name">
+                                <!-- {% if  request.session.user_name %}
+                                {{ request.session.user_name }}
+                                {% else %}
+                                    欢迎游客
+                                {% endif %} -->
+                                {% if request.session.user_name %}
+                
+                                    你好 -  <a href=""><span style="font-weight: bolder; ">{% block request.session.user_name %}{% endblock %}</span></a>
+			
+                
+                                {% else %}
+                                    
+                                        使用前请
+                                    
+                                {% endif %}
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                            <a class="dropdown-item">
+                                <i class="mdi mdi-settings text-primary"></i>
+                                Settings
+                            </a>
+                            <a class="dropdown-item" href="/user/Logout">
+                                <i class="mdi mdi-logout text-primary"></i>
+                                Logout
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link icon-link">
+                            <i class="mdi mdi-plus-circle-outline"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link icon-link">
+                            <i class="mdi mdi-web"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link icon-link">
+                            <i class="mdi mdi-clock-outline"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <h3 style="color:white;background: #355469;font-size: 25px;" align=" center" >数据报表</h3>
+                <div id="main" style="height:68%;position: relative;top: 0px ">
+                        <script>
+                            var myChart = echarts.init(document.getElementById('main'));
+                            var dataCQ = [
+                            [1,"tcp",3,1,5,0,66,"非法"],
+                            [2,"udp",0,1,5,3,12,"合法"],
+                            [3,"icmp",3,2,1,2,9,"合法"],
+                            [4,"tcp",2,2,5,5,77,"非法"],
+                            [5,"tcp",1,0,1,0,53,"合法"],
+                            [6,"tcp",0,3,5,1,3,"合法"],
+                            [7,"tcp",3,1,3,1,33,"合法"],
+                            [8,"tcp",3,13,2,1,53,"非法"],
+                            [9,"tcp",3,1,2,1,3,"合法"],
+                            [10,"udp",0,3,1,3,2,"合法"],
+                            [11,"tcp",3,1,5,3,79,"非法"],
+                            [12,"tcp",1,3,5,1,23,"合法"],
+                            [13,"icmp",3,13,2,5,53,"非法"],
+                            [14,"udp",3,1,2,1,71,"非法"],
+                            [15,"tcp",3,2,5,1,2,"合法"],
+                            [16,"icmp",0,2,1,1,13,"合法"],
+                            [17,"udp",3,13,5,5,53,"合法"],
+                            [18,"udp",3,13,5,0,23,"合法"],
+                            [19,"tcp",3,3,2,5,33,"非法"],
+                            [20,"tcp",0,1,5,0,1,"合法"],
+                            [21,"tcp",3,1,0,0,51,"合法"],
+                            [22,"udp",0,1,1,0,63,"合法"],
+                            [23,"tcp",0,13,5,5,53,"非法"],
+                            [24,"udp",3,13,5,5,53,"合法"],
+                            [25,"udp",3,13,5,0,23,"合法"],
+                            [26,"udp",3,3,5,4,34,"非法"],
+                            [27,"udp",0,1,1,0,63,"合法"],
+                            [28,"tcp",0,13,5,5,53,"非法"],
+                            [29,"tcp",1,0,1,0,53,"合法"],
+                            [30,"tcp",3,1,5,0,66,"非法"],
+                            [31,"udp",0,1,5,3,12,"合法"],
+                            ];
+                    
+                            var dataCD = [
+                            [1,"udp",3,1,2,1,71,"非法"],
+                            [2,"tcp",3,2,5,1,2,"合法"],
+                            [3,"icmp",0,2,1,1,13,"合法"],
+                            [4,"icmp",3,2,1,2,9,"合法"],
+                            [5,"tcp",2,2,5,5,77,"非法"],
+                            [6,"tcp",1,0,1,0,53,"合法"],
+                            [7,"tcp",3,1,5,0,66,"非法"],
+                            [8,"udp",0,1,5,3,12,"合法"],
+                            [9,"tcp",0,3,5,1,3,"合法"],
+                            [10,"tcp",3,1,2,1,3,"合法"],
+                            [11,"udp",3,13,5,5,53,"合法"],
+                            [12,"tcp",3,1,3,1,33,"合法"],
+                            [13,"tcp",3,13,2,1,53,"非法"],
+                            [14,"udp",3,13,5,0,23,"合法"],
+                            [15,"tcp",3,3,2,5,33,"非法"],
+                            [16,"tcp",0,1,5,0,1,"合法"],
+                            [17,"tcp",3,1,0,0,51,"合法"],
+                            [18,"udp",3,3,5,4,34,"非法"],
+                            [19,"udp",0,1,1,0,63,"合法"],
+                            [20,"tcp",0,13,5,5,53,"非法"],
+                            [21,"udp",0,0,5,0,1,"合法"],
+                            [22,"tcp",3,2,5,5,3,"合法"],
+                            [23,"udp",3,5,1,1,99,"非法"],
+                            [24,"tcp",3,2,5,2,53,"合法"],
+                            [25,"udp",3,2,5,5,33,"合法"],
+                            [26,"tcp",3,2,5,3,101,"非法"],
+                            [27,"udp",3,2,5,3,53,"合法"],
+                            [28,"udp",0,3,1,3,2,"合法"],
+                            [29,"tcp",3,1,5,3,79,"非法"],
+                            [30,"tcp",1,3,5,1,23,"合法"],
+                            [31,"icmp",3,13,2,5,53,"非法"]
+                            ];
+                        
+                            var dataMY = [
+                            [1,"udp",3,2,5,3,53,"合法"],
+                            [2,"udp",0,3,1,3,2,"合法"],
+                            [3,"udp",3,13,5,0,23,"合法"],
+                            [4,"udp",3,1,2,1,71,"非法"],
+                            [5,"udp",3,2,5,5,93,"合法"],
+                            [6,"tcp",0,3,5,1,3,"合法"],
+                            [7,"tcp",3,1,2,1,3,"合法"],
+                            [8,"tcp",3,1,5,3,89,"非法"],
+                            [9,"tcp",1,3,5,1,23,"合法"],
+                            [10,"udp",3,5,1,1,89,"非法"],
+                            [11,"tcp",3,2,5,2,53,"合法"],
+                            [12,"udp",3,2,5,5,33,"合法"],
+                            [13,"tcp",3,2,5,3,101,"非法"],
+                            [14,"udp",3,2,5,3,53,"合法"],
+                            [15,"udp",0,3,1,3,2,"合法"],
+                            [16,"udp",3,13,5,5,63,"合法"],
+                            [17,"tcp",3,2,5,3,101,"非法"],
+                            [18,"udp",3,2,5,3,53,"合法"],
+                            [19,"udp",0,3,1,3,2,"合法"],
+                            [20,"tcp",3,1,5,3,79,"非法"],
+                            [21,"tcp",1,3,5,1,23,"合法"],
+                            [22,"tcp",3,2,5,1,2,"合法"],
+                            [23,"icmp",0,2,1,1,13,"合法"],
+                            [24,"icmp",3,2,1,2,9,"合法"],
+                            [25,"tcp",3,1,0,0,81,"合法"],
+                            [26,"udp",3,3,5,4,34,"非法"],
+                            [27,"udp",0,1,1,0,63,"合法"],
+                            [28,"tcp",0,13,5,5,53,"非法"],
+                            [29,"udp",0,0,5,0,1,"合法"],
+                            [30,"tcp",3,2,5,5,3,"合法"],
+                            [31,"tcp",3,2,5,3,101,"非法"],
+                            ];
+                        
+                        var schema = [
+                            {name: 'date', index: 0, text: '日期'},
+                            {name: 'Protocol_type', index: 1, text: '协议类型'},
+                            {name: 'incorrect_segments_num', index: 2, text: '错误分段数量'},
+                            {name: 'urgent_packages_num', index: 3, text: ' 加急包数量'},
+                            {name: 'HOT', index: 4, text: 'HOT'},
+                            {name: 'num_filed_logins', index: 5, text: '登陆失败次数'},
+                            {name: 'sensitive_files', index: 6, text: '敏感文件访问'},
+                            {name: '等级', index: 7, text: '等级'}
+                            ];
+                        
+                        var lineStyle = {
+                            normal: {
+                                width: 1,
+                                
+                            }
+                        };
+                        
+                        option = {
+                            backgroundColor: '#fff',
+                            legend: {
+                                bottom: 30,
+                                data: ['重庆', '成都', '绵阳'],
+                                itemGap: 20,
+                                textStyle: {
+                                    color: '#222',
+                                    fontSize: 15
+                                }
+                            },
+                            tooltip: {
+                                padding: 10,
+                                backgroundColor: '#222',
+                                borderColor: '#777',
+                                borderWidth: 1,
+                                formatter: function (obj) {
+                                    var value = obj[0].value;
+                                    return '<div style="border-bottom: 1px solid rgba(255,255,255,.3); font-size: 18px;padding-bottom: 7px;margin-bottom: 7px">'
+                                        + obj[0].seriesName + ' ' + value[0] + '日期：'
+                                        + value[7]
+                                        + '</div>'
+                                        + schema[1].text + '：' + value[1] + '<br>'
+                                        + schema[2].text + '：' + value[2] + '<br>'
+                                        + schema[3].text + '：' + value[3] + '<br>'
+                                        + schema[4].text + '：' + value[4] + '<br>'
+                                        + schema[5].text + '：' + value[5] + '<br>'
+                                        + schema[6].text + '：' + value[6] + '<br>';
+                                }
+                            },
+                            // dataZoom: {
+                            //     show: true,
+                            //     orient: 'vertical',
+                            //     parallelAxisIndex: [0]
+                            // },
+                            parallelAxis: [
+                                {dim: 0, name: schema[0].text, inverse: true, max: 31, nameLocation: 'start'},
+                                {dim: 1, name: schema[1].text,type: 'category', data: ['tcp', 'udp','icmp']},
+                                {dim: 2, name: schema[2].text,splitNumber:3,max:3,min:0},
+                                {dim: 3, name: schema[3].text,max:14},
+                                {dim: 4, name: schema[4].text},
+                                {dim: 5, name: schema[5].text},
+                                {dim: 6, name: schema[6].text,max:101},
+                                {dim: 7, name: schema[7].text,
+                                type: 'category', data: ['非法', '合法']}
+                            ],
+                        
+                            parallel: {
+                                left: '5%',
+                                right: '18%',
+                                bottom: 100,
+                                parallelAxisDefault: {
+                                    type: 'value',
+                                    name: '能源合法情况',
+                                    nameLocation: 'end',
+                                    nameGap: 20,
+                                    nameTextStyle: {
+                                        color: '#222',
+                                        fontSize: 15
+                                        
+                                    },
+                                    axisLine: {
+                                        lineStyle: {
+                                            color: '#222'
+                                        }
+                                    },
+                                    axisTick: {
+                                        lineStyle: {
+                                            color: '#222'
+                                        }
+                                    },
+                                    splitLine: {
+                                        show: false
+                                    },
+                                    axisLabel: {
+                                        color: '#222'
+                                    }
+                                }
+                            },
+                            series: [
+                                {
+                                    name: '重庆',
+                                    type: 'parallel',
+                                    lineStyle: lineStyle,
+                                    data: dataCQ
+                                
+                                },
+                                {
+                                    name: '成都',
+                                    type: 'parallel',
+                                    lineStyle: lineStyle,
+                                    data: dataCD,
+                                },
+                                {
+                                    name: '绵阳',
+                                    type: 'parallel',
+                                    lineStyle: lineStyle,
+                                    data: dataMY,
+                                }
+                            ]
+                            
+                        };;
+                        myChart.setOption(option);
+                        </script>
+                </div>
+        </div>
+{% if messages %}
+        <script>
+            {% for msg in messages %}
+                alert('{{ msg.message }}');
+            {% endfor %}
+        </script>
+{% endif %}
+<script src="{%  static 'vendors/js/vendor.bundle.base.js' %}"></script>
+<script src="{%  static 'vendors/chart.js/Chart.min.js' %}"></script>
+<script src="{%  static 'js/off-canvas.js' %}"></script>
+<script src="{%  static 'js/hoverable-collapse.js' %}"></script>
+<script src="{%  static 'js/template.js' %}"></script>
+<script src="{%  static 'js/dashboard.js' %}"></script>
+</body>
+</html>
